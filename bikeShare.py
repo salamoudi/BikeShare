@@ -1,4 +1,5 @@
 import time
+import datetime
 import calendar as caldr
 import pandas as pd
 import numpy as np
@@ -81,7 +82,7 @@ def time_stats(df):
 
     # TO DO: display the most common start hour
     df['hours'] = df['Start Time'].dt.hour
-    commonHour = df['hours'].mode()[0]
+    commonHour = datetime.time(df['hours'].mode()[0]).strftime("%I %p") 
     print("The most common start hour: {}".format(commonHour))
 
     # print("\nThis took %s seconds." % (time.time() - start_time))
