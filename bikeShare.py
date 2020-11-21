@@ -34,7 +34,7 @@ def get_filters():
         
 
     # TO DO: get user input for day of week (all, monday, tuesday, ... sunday)
-    day = input("Enter name of the day of week to filter by, or '"'all'"' to apply no day filter: ")
+    day = input("Enter name of the day of week to filter by, or '"'all'"' to apply no day filter:\n")
 
 
     # print('-'*40)
@@ -138,12 +138,26 @@ def user_stats(df):
     # start_time = time.time()
 
     # TO DO: Display counts of user types
+    userTypes = df['User Type'].value_counts()
+    print("Counts by user types:\n{}".format(userTypes))
 
 
     # TO DO: Display counts of gender
+    try:
+        userGender = df['Gender'].value_counts()
+        print("Counts by gender:\n{}".format(userGender))
+    except:
+        print("Gender data is not found")
 
 
     # TO DO: Display earliest, most recent, and most common year of birth
+    try:
+        earliest = int(df['Birth Year'].min())
+        recent = int(df['Birth Year'].max())
+        commonYear = int(df['Birth Year'].mode()[0])
+        print("\nThe earliest year of birth: {}\nThe most recent year of birth: {}\nThe most common year of birth: {}".format(earliest,recent,commonYear))
+    except:
+        print("There are no birth year details in this file.")
 
 
     # print("\nThis took %s seconds." % (time.time() - start_time))
