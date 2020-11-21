@@ -111,7 +111,7 @@ def trip_duration_stats(df):
     """Displays statistics on the total and average trip duration."""
 
     print('\nCalculating Trip Duration...\n')
-    start_time = time.time()
+    # start_time = time.time()
 
     # TO DO: display total travel time
 
@@ -127,7 +127,7 @@ def user_stats(df):
     """Displays statistics on bikeshare users."""
 
     print('\nCalculating User Stats...\n')
-    start_time = time.time()
+    # start_time = time.time()
 
     # TO DO: Display counts of user types
 
