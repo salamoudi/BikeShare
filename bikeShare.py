@@ -1,4 +1,5 @@
 import time
+import calendar as caldr
 import pandas as pd
 import numpy as np
 
@@ -35,7 +36,7 @@ def get_filters():
     day = input("Enter name of the day of week to filter by, or '"'all'"' to apply no day filter: ")
 
 
-    print('-'*40)
+    # print('-'*40)
     return city, month, day
 
 
@@ -43,10 +44,11 @@ def load_data(city, month, day):
     
     df = pd.read_csv(CITY_DATA[city])
     df['Start Time'] = pd.to_datetime(df['Start Time'])
+ 
 
     #Get month and day from Start Time
     df['month'] = df['Start Time'].dt.month
-    df['day_of_week'] = df['Start Time'].dt.weekday_name
+    df['day_of_week'] = df['Start Time'].dt.day_name()
     
     #Filter by month
     if month != 0:
@@ -54,10 +56,10 @@ def load_data(city, month, day):
 
     #Filter by day 
     if day != 'all':
-        df = df[df['day_of_week'] == day]
+        df = df[df['day_of_week'] == day.title()]
+    
+    
 
-    
-    
     return df
 
 
@@ -65,26 +67,32 @@ def time_stats(df):
     """Displays statistics on the most frequent times of travel."""
 
     print('\nCalculating The Most Frequent Times of Travel...\n')
-    start_time = time.time()
+    # start_time = time.time()
 
     # TO DO: display the most common month
+    commonMonth = caldr.month_name[df['month'].mode()[0]]
+    print("The most common month: {}".format(commonMonth))
 
 
     # TO DO: display the most common day of week
+    commonDay = df['day_of_week'].mode()[0]
+    print("The most common day of week: {}".format(commonDay))
 
 
     # TO DO: display the most common start hour
+    df['hours'] = df['Start Time'].dt.hour
+    commonHour = df['hours'].mode()[0]
+    print("The most common start hour: {}".format(commonHour))
 
-
-    print("\nThis took %s seconds." % (time.time() - start_time))
-    print('-'*40)
+    # print("\nThis took %s seconds." % (time.time() - start_time))
+    # print('-'*40)
 
 
 def station_stats(df):
     """Displays statistics on the most popular stations and trip."""
 
-    print('\nCalculating The Most Popular Stations and Trip...\n')
-    start_time = time.time()
+    print('\nCalculating The Most Popular Stations and Trip...')
+    # start_time = time.time()
 
     # TO DO: display most commonly used start station
 
@@ -95,8 +103,8 @@ def station_stats(df):
     # TO DO: display most frequent combination of start station and end station trip
 
 
-    print("\nThis took %s seconds." % (time.time() - start_time))
-    print('-'*40)
+    # print("\nThis took %s seconds." % (time.time() - start_time))
+    # print('-'*40)
 
 
 def trip_duration_stats(df):
@@ -111,8 +119,8 @@ def trip_duration_stats(df):
     # TO DO: display mean travel time
 
 
-    print("\nThis took %s seconds." % (time.time() - start_time))
-    print('-'*40)
+    # print("\nThis took %s seconds." % (time.time() - start_time))
+    # print('-'*40)
 
 
 def user_stats(df):
@@ -130,8 +138,8 @@ def user_stats(df):
     # TO DO: Display earliest, most recent, and most common year of birth
 
 
-    print("\nThis took %s seconds." % (time.time() - start_time))
-    print('-'*40)
+    # print("\nThis took %s seconds." % (time.time() - start_time))
+    # print('-'*40)
 
 
 def main():
